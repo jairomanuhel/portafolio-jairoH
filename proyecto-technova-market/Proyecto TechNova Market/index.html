@@ -1,0 +1,1128 @@
+.search-section {
+            display: none;
+        }<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova - Marketplace Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f6f6f7;
+            color: #1d1d1f;
+            line-height: 1.47;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            gap: 20px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            flex: 2;
+        }
+
+        .nav-right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex: 1;
+            gap: 16px;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(142, 142, 147, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #1d1d1f;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .nav-icon:hover {
+            background: rgba(142, 142, 147, 0.2);
+            transform: scale(1.05);
+        }
+
+        .nav-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ff3b30;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: rgba(142, 142, 147, 0.12);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: #6e6e73;
+        }
+
+        .location-info:hover {
+            background: rgba(142, 142, 147, 0.2);
+        }
+
+        .location-info svg {
+            width: 16px;
+            height: 16px;
+            color: #007aff;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2c2c2e;
+            text-decoration: none;
+            letter-spacing: -0.8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(142, 142, 147, 0.12);
+        }
+
+        .hamburger:hover {
+            background: rgba(142, 142, 147, 0.2);
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: #1d1d1f;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(30px);
+            border-radius: 16px;
+            padding: 20px;
+            min-width: 200px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 16px;
+        }
+
+        .mobile-menu ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        .mobile-menu ul li a {
+            color: #1d1d1f;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 8px 0;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #2c2c2e;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(142, 142, 147, 0.12);
+            border-radius: 10px;
+            padding: 8px 16px;
+            width: 100%;
+            max-width: 320px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus-within {
+            background: rgba(142, 142, 147, 0.2);
+            transform: scale(1.02);
+        }
+
+        .search-bar input {
+            border: none;
+            background: none;
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            color: #1d1d1f;
+        }
+
+        .search-bar input::placeholder {
+            color: #8e8e93;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: 120px 20px 160px;
+            text-align: center;
+            background: linear-gradient(135deg, #f6f6f7 0%, #ffffff 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 76px);
+            font-weight: 700;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #1d1d1f 0%, #007aff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.25;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 21px;
+            color: #6e6e73;
+            margin-bottom: 60px;
+            font-weight: 400;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #2c2c2e;
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #1c1c1e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(44, 44, 46, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(44, 44, 46, 0.1);
+            color: #2c2c2e;
+            padding: 16px 32px;
+            border: 1px solid rgba(44, 44, 46, 0.2);
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(44, 44, 46, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+            letter-spacing: -1px;
+        }
+
+        .features-subtitle {
+            text-align: center;
+            font-size: 21px;
+            color: #6e6e73;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #007aff, #00c7ff);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1d1d1f;
+        }
+
+        .feature-card p {
+            color: #6e6e73;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        /* Product Carousel */
+        .carousel-container {
+            padding: 100px 20px;
+            background: white;
+            overflow: hidden;
+        }
+
+        .carousel-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .carousel-content h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 80px;
+            color: #1d1d1f;
+            letter-spacing: -1px;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: visible;
+            border-radius: 20px;
+            padding: 10px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            animation: scroll 30s linear infinite;
+            gap: 30px;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .carousel-item {
+            min-width: 280px;
+            background: #f6f6f7;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            flex-shrink: 0;
+        }
+
+        .carousel-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .carousel-info {
+            padding: 24px;
+        }
+
+        .carousel-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+
+        .carousel-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c2c2e;
+            margin-bottom: 12px;
+        }
+
+        .carousel-info p {
+            color: #6e6e73;
+            font-size: 14px;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #f6f6f7;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 24px;
+        }
+
+        .product-info h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c2c2e;
+            margin-bottom: 16px;
+        }
+
+        .product-info p {
+            color: #6e6e73;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-small {
+            background: #2c2c2e;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-small:hover {
+            background: #1c1c1e;
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1d1d1f;
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #a1a1a6;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #2c2c2e;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #424245;
+            color: #a1a1a6;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px 20px;
+                gap: 12px;
+            }
+
+            .nav-left {
+                flex: 0 0 auto;
+            }
+
+            .nav-center {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .nav-right {
+                flex: 0 0 auto;
+                gap: 8px;
+            }
+
+            .location-info {
+                display: none;
+            }
+
+            .nav-icons {
+                gap: 8px;
+            }
+
+            .nav-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .nav-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .search-bar {
+                max-width: 180px;
+            }
+
+            .hero {
+                padding: 60px 20px 100px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .features, .carousel-container, .showcase {
+                padding: 60px 20px;
+            }
+
+            .features h2, .carousel-content h2, .showcase h2 {
+                font-size: 36px;
+            }
+
+            .carousel-track {
+                animation-duration: 20s;
+            }
+
+            .carousel-item {
+                min-width: 250px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content, .feature-card, .product-card {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .product-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .product-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .product-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="#" class="logo">TECH.NOVA</a>
+            </div>
+            <div class="nav-center">
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar productos...">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="location-info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>Panamá</span>
+                </div>
+                <div class="nav-icons">
+                    <a href="#" class="nav-icon" title="Favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="nav-icon" title="Carrito de compras">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"></path>
+                            <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"></path>
+                            <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"></path>
+                        </svg>
+                        <span class="cart-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-icon" title="Mi cuenta">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+        <!-- Barra de búsqueda móvil separada -->
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar productos...">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#inicio">🏠 Inicio</a></li>
+                <li><a href="#productos">📱 Productos</a></li>
+                <li><a href="#vender">💰 Vender</a></li>
+                <li><a href="#categorias">📂 Categorías</a></li>
+                <li><a href="#ofertas">🔥 Ofertas</a></li>
+                <li><a href="#soporte">💬 Soporte</a></li>
+                <li><a href="#cuenta">👤 Mi Cuenta</a></li>
+            </ul>
+        </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>El futuro del comercio digital</h1>
+            <p>Conectamos compradores y vendedores en una experiencia premium, segura y confiable. Descubre productos únicos o vende lo que ya no uses.</p>
+            <div class="cta-buttons">
+                <a href="#productos" class="btn-primary">Explorar Productos</a>
+                <a href="#vender" class="btn-secondary">Comenzar a Vender</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>¿Por qué elegir TechNova?</h2>
+        <p class="features-subtitle">Ofrecemos la mejor experiencia de compra y venta online</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Compra Segura</h3>
+                <p>Protección total en cada transacción. Tu dinero está seguro hasta que recibas tu producto en perfectas condiciones.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Entrega Rápida</h3>
+                <p>Red de distribución premium con entregas en 24-48 horas. Seguimiento en tiempo real de todos tus pedidos.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <h3>Calidad Premium</h3>
+                <p>Productos verificados y vendedores certificados. Solo lo mejor llega a nuestra plataforma.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Carousel -->
+    <section class="carousel-container" id="productos">
+        <div class="carousel-content">
+            <h2>Productos en Tendencia</h2>
+            <div class="carousel-wrapper">
+                <div class="carousel-track">
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop" alt="MacBook Pro" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>MacBook Pro M3</h3>
+                            <div class="carousel-price">$1,899</div>
+                            <p>Potencia profesional con chip M3</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1592910061532-37e35e3d2c7d?w=400&h=300&fit=crop" alt="iPhone 15" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>iPhone 15 Pro Max</h3>
+                            <div class="carousel-price">$1,199</div>
+                            <p>La experiencia iPhone más avanzada</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400&h=300&fit=crop" alt="AirPods Pro" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>AirPods Pro 2</h3>
+                            <div class="carousel-price">$249</div>
+                            <p>Audio espacial personalizado</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=400&h=300&fit=crop" alt="Apple Watch" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>Apple Watch Series 9</h3>
+                            <div class="carousel-price">$399</div>
+                            <p>Tu compañero de salud inteligente</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop" alt="Gaming Setup" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>Gaming Setup Pro</h3>
+                            <div class="carousel-price">$2,499</div>
+                            <p>Setup completo para gamers</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=300&fit=crop" alt="Headphones" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>Sony WH-1000XM5</h3>
+                            <div class="carousel-price">$399</div>
+                            <p>Cancelación de ruido premium</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop" alt="Camera" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>Canon EOS R5</h3>
+                            <div class="carousel-price">$3,899</div>
+                            <p>Cámara profesional 8K</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop" alt="Gaming Chair" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>Silla Gaming Pro</h3>
+                            <div class="carousel-price">$599</div>
+                            <p>Ergonomía y estilo gaming</p>
+                        </div>
+                    </div>
+                    <!-- Duplicamos para animación infinita -->
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop" alt="MacBook Pro" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>MacBook Pro M3</h3>
+                            <div class="carousel-price">$1,899</div>
+                            <p>Potencia profesional con chip M3</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1592910061532-37e35e3d2c7d?w=400&h=300&fit=crop" alt="iPhone 15" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>iPhone 15 Pro Max</h3>
+                            <div class="carousel-price">$1,199</div>
+                            <p>La experiencia iPhone más avanzada</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400&h=300&fit=crop" alt="AirPods Pro" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>AirPods Pro 2</h3>
+                            <div class="carousel-price">$249</div>
+                            <p>Audio espacial personalizado</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=400&h=300&fit=crop" alt="Apple Watch" class="carousel-image">
+                        <div class="carousel-info">
+                            <h3>Apple Watch Series 9</h3>
+                            <div class="carousel-price">$399</div>
+                            <p>Tu compañero de salud inteligente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="showcase">
+        <div class="showcase-content">
+            <h2>Selección Premium</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?w=400&h=300&fit=crop" alt="Monitor 4K" class="product-image" style="object-fit: cover; width: 100%; height: 200px; border-radius: 16px 16px 0 0;">
+                    <div class="product-info">
+                        <h3>Monitor 4K Dell 27"</h3>
+                        <div class="product-price">$599</div>
+                        <p>Resolución 4K UHD para profesionales del diseño.</p>
+                        <button class="btn-small">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300&fit=crop" alt="Mechanical Keyboard" class="product-image" style="object-fit: cover; width: 100%; height: 200px; border-radius: 16px 16px 0 0;">
+                    <div class="product-info">
+                        <h3>Teclado Mecánico RGB</h3>
+                        <div class="product-price">$159</div>
+                        <p>Switches Cherry MX con iluminación personalizable.</p>
+                        <button class="btn-small">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=300&fit=crop" alt="Headset Gaming" class="product-image" style="object-fit: cover; width: 100%; height: 200px; border-radius: 16px 16px 0 0;">
+                    <div class="product-info">
+                        <h3>Headset Gaming 7.1</h3>
+                        <div class="product-price">$199</div>
+                        <p>Audio envolvente con micrófono profesional.</p>
+                        <button class="btn-small">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=400&h=300&fit=crop" alt="Drone DJI" class="product-image" style="object-fit: cover; width: 100%; height: 200px; border-radius: 16px 16px 0 0;">
+                    <div class="product-info">
+                        <h3>DJI Mini 4 Pro</h3>
+                        <div class="product-price">$759</div>
+                        <p>Drone compacto con cámara 4K y estabilización.</p>
+                        <button class="btn-small">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TechNova</h3>
+                <ul>
+                    <li><a href="#">Acerca de nosotros</a></li>
+                    <li><a href="#">Carreras</a></li>
+                    <li><a href="#">Prensa</a></li>
+                    <li><a href="#">Inversionistas</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Comprar</h3>
+                <ul>
+                    <li><a href="#">Tecnología</a></li>
+                    <li><a href="#">Electrodomésticos</a></li>
+                    <li><a href="#">Moda</a></li>
+                    <li><a href="#">Deportes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Vender</h3>
+                <ul>
+                    <li><a href="#">Comenzar a vender</a></li>
+                    <li><a href="#">Centro del vendedor</a></li>
+                    <li><a href="#">Herramientas</a></li>
+                    <li><a href="#">Tarifas</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Soporte</h3>
+                <ul>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="#">Contáctanos</a></li>
+                    <li><a href="#">Política de devoluciones</a></li>
+                    <li><a href="#">Términos de servicio</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 TechNova. Todos los derechos reservados. | Diseñado con pasión en Panamá</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu hamburguesa toggle
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Cerrar menú móvil después de navegar
+                    document.querySelector('.hamburger').classList.remove('active');
+                    document.getElementById('mobileMenu').classList.remove('active');
+                }
+            });
+        });
+
+        // Header blur effect en scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(30px)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.8)';
+                header.style.backdropFilter = 'blur(20px)';
+            }
+        });
+
+        // Animaciones en scroll para elementos
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animaciones
+        document.querySelectorAll('.feature-card, .product-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

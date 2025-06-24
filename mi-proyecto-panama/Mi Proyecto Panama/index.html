@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explora Panamá - Turismo y Aventuras</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c5aa0;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #2c5aa0;
+        }
+
+        .nav-button {
+            background: #2c5aa0;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .nav-button:hover {
+            background: #1e3d6f;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('./images/panamacity.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #2c5aa0;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #1e3d6f;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+        }
+
+        /* Search Bar */
+        .search-section {
+            background: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .search-bar {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-btn {
+            background: #2c5aa0;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Destinations Section */
+        .destinations {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .card-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c5aa0;
+        }
+
+        .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffa500;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: #2c5aa0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #2c5aa0;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #2c5aa0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+            text-align: center;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+<a href="#" class="logo">
+    <img src="./images/bandera-panama.webp" style="width: 24px; height: 16px; margin-right: 8px;">
+    Explora Panamá
+</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#destinos">Destinos</a></li>
+                    <li><a href="#experiencias">Experiencias</a></li>
+                    <li><a href="#hoteles">Hoteles</a></li>
+                    <li><a href="#tours">Tours</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <button class="nav-button">Reservar Ahora</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Descubre la Magia de Panamá</h1>
+            <p>Desde las playas cristalinas del Caribe hasta las montañas de Chiriquí, vive experiencias únicas en el corazón de América</p>
+            <div class="hero-buttons">
+                <a href="#destinos" class="btn-primary">Explorar Destinos</a>
+                <a href="#tours" class="btn-secondary">Ver Tours</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="¿A dónde quieres viajar?">
+                <select class="search-input">
+                    <option>Tipo de experiencia</option>
+                    <option>Playa</option>
+                    <option>Montaña</option>
+                    <option>Ciudad</option>
+                    <option>Aventura</option>
+                </select>
+                <input type="date" class="search-input">
+                <button class="search-btn">Buscar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="destinations" id="destinos">
+        <div class="container">
+            <h2 class="section-title">Destinos Populares</h2>
+            <p class="section-subtitle">Descubre los lugares más impresionantes de Panamá</p>
+            
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <div class="card-image" style="background-image: url('./images/casco-viejo.webp');">
+                        <div class="card-badge">Más Popular</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Casco Viejo</h3>
+                        <p class="card-location">📍 Ciudad de Panamá</p>
+                        <p class="card-description">Explora el corazón histórico de la capital panameña con su arquitectura colonial y vistas espectaculares del skyline moderno.</p>
+                        <div class="card-footer">
+                            <span class="card-price">Desde $45</span>
+                            <div class="card-rating">
+                                <span>⭐ 4.8</span>
+                                <span>(2,341)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="card-image" style="background-image: url('./images/bocas-del-toro.jpg');">
+                        <div class="card-badge">Aventura</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Bocas del Toro</h3>
+                        <p class="card-location">📍 Provincia de Bocas del Toro</p>
+                        <p class="card-description">Paraíso tropical con playas de arena blanca, aguas cristalinas y una vibrante vida marina perfecta para el snorkeling.</p>
+                        <div class="card-footer">
+                            <span class="card-price">Desde $120</span>
+                            <div class="card-rating">
+                                <span>⭐ 4.9</span>
+                                <span>(1,892)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="card-image" style="background-image: url('./images/volcan-baru.JPG');">
+                        <div class="card-badge">Naturaleza</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Volcán Barú</h3>
+                        <p class="card-location">📍 Chiriquí</p>
+                        <p class="card-description">El punto más alto de Panamá ofrece vistas panorámicas únicas donde puedes ver ambos océanos en un día despejado.</p>
+                        <div class="card-footer">
+                            <span class="card-price">Desde $80</span>
+                            <div class="card-rating">
+                                <span>⭐ 4.7</span>
+                                <span>(956)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="card-image" style="background-image: url('./images/canal-panama.jpg');">
+                        <div class="card-badge">Cultural</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Canal de Panamá</h3>
+                        <p class="card-location">📍 Ciudad de Panamá</p>
+                        <p class="card-description">Maravilla de la ingeniería moderna. Observa el paso de enormes barcos en las esclusas de Miraflores.</p>
+                        <div class="card-footer">
+                            <span class="card-price">Desde $25</span>
+                            <div class="card-rating">
+                                <span>⭐ 4.6</span>
+                                <span>(3,247)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="card-image" style="background-image: url('./images/san-blas.jpg');">
+                        <div class="card-badge">Playa</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">San Blas</h3>
+                        <p class="card-location">📍 Comarca Guna Yala</p>
+                        <p class="card-description">Archipiélago paradisíaco con más de 350 islas vírgenes. Experiencia auténtica con la cultura Guna.</p>
+                        <div class="card-footer">
+                            <span class="card-price">Desde $150</span>
+                            <div class="card-rating">
+                                <span>⭐ 5.0</span>
+                                <span>(1,456)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="card-image" style="background-image: url('./images/monteverde.jpg');">
+                        <div class="card-badge">Aventura</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Monteverde</h3>
+                        <p class="card-location">📍 Chiriquí</p>
+                        <p class="card-description">Bosque nuboso único con increíble biodiversidad. Perfecto para observación de aves y canopy tours.</p>
+                        <div class="card-footer">
+                            <span class="card-price">Desde $95</span>
+                            <div class="card-rating">
+                                <span>⭐ 4.8</span>
+                                <span>(1,123)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">¿Por qué elegir Explora Panamá?</h2>
+            <p class="section-subtitle">Tu aventura panameña comienza aquí</p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Experiencias Únicas</h3>
+                    <p class="feature-description">Tours exclusivos y experiencias auténticas que no encontrarás en ningún otro lugar.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Reservas Seguras</h3>
+                    <p class="feature-description">Plataforma segura con garantía de devolución y atención al cliente 24/7.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">Guías Locales</h3>
+                    <p class="feature-description">Conoce Panamá de la mano de expertos locales con historias fascinantes que contar.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Mejores Precios</h3>
+                    <p class="feature-description">Garantizamos los mejores precios del mercado con ofertas exclusivas para nuestros usuarios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Explora Panamá</h3>
+                    <p>Tu portal de confianza para descubrir las maravillas de Panamá. Experiencias auténticas, precios justos, memorias inolvidables.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Destinos</h3>
+                    <a href="#">Ciudad de Panamá</a>
+                    <a href="#">Bocas del Toro</a>
+                    <a href="#">San Blas</a>
+                    <a href="#">Chiriquí</a>
+                    <a href="#">Azuero</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <a href="#">Tours Guiados</a>
+                    <a href="#">Reserva de Hoteles</a>
+                    <a href="#">Transporte</a>
+                    <a href="#">Actividades</a>
+                    <a href="#">Paquetes</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <a href="#">📧 info@explorapanama.com</a>
+                    <a href="#">📱 +507 6789-0123</a>
+                    <a href="#">📍 Casco Viejo, Ciudad de Panamá</a>
+                    <a href="#">🕒 Lun-Dom 8AM-10PM</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Explora Panamá. Todos los derechos reservados. | Diseñado para portafolio profesional</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active state to navigation on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#fff';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Add click animation to cards
+        document.querySelectorAll('.destination-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-5px)';
+                }, 150);
+            });
+        });
+
+        // Search functionality simulation
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm.trim()) {
+                alert(`Buscando experiencias relacionadas con: "${searchTerm}". En una implementación real, esto filtraría los resultados.`);
+            }
+        });
+
+        // Reservation button functionality
+        document.querySelector('.nav-button').addEventListener('click', function() {
+            alert('Funcionalidad de reserva. En una implementación real, esto abriría un formulario de reserva o sistema de booking.');
+        });
+    </script>
+</body>
+</html>
